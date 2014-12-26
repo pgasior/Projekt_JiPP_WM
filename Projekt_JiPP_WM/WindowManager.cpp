@@ -5,9 +5,9 @@
 WindowManager::WindowManager(sf::RenderWindow *win)
 {
 	window = win;
-	moving = false;
 	top = false;
 	mouse_hold = false;
+	movingWindow = NULL;
 }
 
 
@@ -19,40 +19,38 @@ void WindowManager::addWindow(float x, float y, float w, float h, std::string ti
 {
 	Okna.push_back(Okno(window, x, y, w, h, title, kolor));
 }
-void WindowManager::pollMousePressedEvents()
+void WindowManager::pollLeftMousePressedEvents()
 {
-	for (MyList<Okno>::ReverseIterator it = Okna.rbegin(); it != Okna.rend(); it++)
+	MyList<Okno>::ReverseIterator it = Okna.rbegin();
+	while (!mouse_hold && !movingWindow && it != Okna.rend())
 	{
-		if (!moving)
-			if (!mouse_hold && !top && !(it->getMovingState()) && it->Clicked()) //it->titleBarClicked())
-			{
-				Okna.push_back(*it);
-				it.getnode()->remove();
-				it = Okna.rbegin();
-				if (it->titleBarClicked())
-				{
-					moving = true;
-					it->startMove();
-				}
-				top = true;
-			}
-		if (it->getMovingState())
+		if (/*!mouse_hold && */!top && it->Clicked())
 		{
-			it->updatePosition();
-		}
+			Okna.push_back(*it);
+			it.getnode()->remove();
+			it = Okna.rbegin();
+				
+			if (it->titleBarClicked())
+			{
+				movingWindow = &(*it);
+				it->startMove();
+			}
+			top = true;
+		}		
+		it++;
+	}
+	if (movingWindow)
+	{
+		movingWindow->updatePosition();
 	}
 	top = false;
 	mouse_hold = true;
+	
 }
-void WindowManager::pollMouseNotPressedEvents()
+void WindowManager::pollLeftMouseReleasedEvents()
 {
 	mouse_hold = false;
-	for (MyList<Okno>::Iterator it = Okna.begin(); it != Okna.end(); it++)
-	{
-		if (it->getMovingState())
-			it->setMovingstate(false);
-	}
-	moving = false;
+	movingWindow = NULL;
 }
 
 void WindowManager::drawWindows()

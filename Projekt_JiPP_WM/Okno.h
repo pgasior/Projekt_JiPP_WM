@@ -17,8 +17,8 @@ public:
 	void startMove();
 	void setPosition(sf::Vector2i nowa);
 	void saveMousePosition();
-	bool getMovingState();
-	void setMovingstate(bool state);
+	//bool getMovingState();
+	//void setMovingstate(bool state);
 	void updatePosition();
 
 private:
@@ -35,6 +35,6 @@ private:
 	//sf::View viewRectangle;
 	//sf::View winView;
 	sf::Vector2i lastMouse;
-	bool movingState;
+	//bool movingState;
 };
 

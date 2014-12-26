@@ -7,8 +7,8 @@ class WindowManager
 {
 public:
 	void addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor);
-	void pollMousePressedEvents();
-	void pollMouseNotPressedEvents();
+	void pollLeftMousePressedEvents();
+	void pollLeftMouseReleasedEvents();
 	void drawWindows();
 	WindowManager(sf::RenderWindow *win);
 	~WindowManager();
@@ -16,8 +16,9 @@ public:
 private:
 	sf::RenderWindow *window;
 	MyList<Okno> Okna;
-	bool moving;
+	//bool moving;
 	bool top;
 	bool mouse_hold;
+	Okno *movingWindow;
 };
 
