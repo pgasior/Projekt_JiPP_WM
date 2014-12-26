@@ -5,6 +5,7 @@
 
 Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture) : x(x), y(y), w(w), h(h)//, closeButtonTexture(closeButtonTexture)
 {
+	winh = 20.0f;
 
 	window = win;
 	winTitle = sf::RectangleShape(sf::Vector2f(w, winh));
@@ -121,18 +122,18 @@ void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 }
 
-void Okno::operator=(const Okno &N)
-{
-	winTitle = N.winTitle;
-	rectangle = N.rectangle;
-	window = N.window;
-	x = N.x;
-	y = N.y;
-	w = N.w;
-	h = N.h;
-	lastMouse = N.lastMouse;
-	//movingState = N.movingState;
-}
+//void Okno::operator=(const Okno &N)
+//{
+//	winTitle = N.winTitle;
+//	rectangle = N.rectangle;
+//	window = N.window;
+//	x = N.x;
+//	y = N.y;
+//	w = N.w;
+//	h = N.h;
+//	lastMouse = N.lastMouse;
+//	//movingState = N.movingState;
+//}
 Okno::Okno()
 {
 }

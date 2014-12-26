@@ -8,7 +8,7 @@ public:
 	Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture);
 	Okno();
 	~Okno();
-	void operator=(const Okno &N);
+	//void operator=(const Okno &N);
 
 	sf::FloatRect getGlobalBounds();
 	bool Clicked();
@@ -32,7 +32,7 @@ private:
 	sf::RectangleShape rightBound;
 	sf::RectangleShape downBound;
 	//sf::Texture *closeButtonTexture;
-	const float winh = 20.0f;
+	float winh;
 	float x;
 	float y;
 	float w;
