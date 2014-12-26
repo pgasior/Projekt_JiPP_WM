@@ -8,6 +8,7 @@ WindowManager::WindowManager(sf::RenderWindow *win)
 	top = false;
 	mouse_hold = false;
 	movingWindow = NULL;
+	closeButtonTexture.loadFromFile("close-icon.png");
 }
 
 
@@ -17,7 +18,7 @@ WindowManager::~WindowManager()
 
 void WindowManager::addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor)
 {
-	Okna.push_back(Okno(window, x, y, w, h, title, kolor));
+	Okna.push_back(Okno(window, x, y, w, h, title, kolor,&closeButtonTexture));
 }
 void WindowManager::pollLeftMousePressedEvents()
 {

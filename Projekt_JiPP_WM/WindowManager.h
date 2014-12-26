@@ -20,5 +20,6 @@ private:
 	bool top;
 	bool mouse_hold;
 	Okno *movingWindow;
+	sf::Texture closeButtonTexture;
 };
 

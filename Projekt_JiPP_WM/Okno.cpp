@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor) : x(x), y(y), w(w), h(h)
+Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture) : x(x), y(y), w(w), h(h), closeButtonTexture(closeButtonTexture)
 {
 
 	window = win;
@@ -12,6 +12,10 @@ Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::strin
 	rectangle = sf::RectangleShape(sf::Vector2f(w, h));
 	rectangle.setPosition(x, y + winh);
 	rectangle.setFillColor(kolor);
+
+	closeButton = sf::RectangleShape(sf::Vector2f(16, 16));
+	closeButton.setPosition(x + w - 16 - 2, y + 2);
+	closeButton.setTexture(closeButtonTexture);
 	//movingState = false;
 
 
@@ -69,11 +73,13 @@ void Okno::updatePosition()
 {
 	sf::Vector2f recttmp = rectangle.getPosition();
 	sf::Vector2f titletmp = winTitle.getPosition();
+	sf::Vector2f closeTemp = closeButton.getPosition();
 	sf::Vector2i newMouse = sf::Mouse::getPosition(*window);
 	if (newMouse.x >= static_cast<int>(window->getSize().x) || newMouse.y >= static_cast<int>(window->getSize().y) )
 		return;
 	rectangle.setPosition(recttmp.x + newMouse.x - lastMouse.x, recttmp.y + newMouse.y - lastMouse.y);
 	winTitle.setPosition(titletmp.x + newMouse.x - lastMouse.x, titletmp.y + newMouse.y - lastMouse.y);
+	closeButton.setPosition(closeTemp.x + newMouse.x - lastMouse.x, closeTemp.y + newMouse.y - lastMouse.y);
 	lastMouse = newMouse;
 }
 
@@ -81,6 +87,7 @@ void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(winTitle);
 	target.draw(rectangle);
+	target.draw(closeButton);
 
 }
 
