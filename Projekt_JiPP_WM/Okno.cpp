@@ -18,6 +18,18 @@ Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::strin
 	closeButton = sf::RectangleShape(sf::Vector2f(16, 16));
 	closeButton.setPosition(x + w - 16 - 2, y + 2);
 	closeButton.setTexture(closeButtonTexture);
+
+	leftBound = sf::RectangleShape(sf::Vector2f(2, h));
+	leftBound.setTexture(titleBarTexture);
+	leftBound.setPosition(x, y + winh);
+
+	downBound = sf::RectangleShape(sf::Vector2f(w, 2));
+	downBound.setTexture(titleBarTexture);
+	downBound.setPosition(x, y + winh + h);
+
+	rightBound = sf::RectangleShape(sf::Vector2f(2, h));
+	rightBound.setTexture(titleBarTexture);
+	rightBound.setPosition(x+w-2, y + winh);
 	//movingState = false;
 
 
@@ -79,15 +91,22 @@ void Okno::saveMousePosition()
 
 void Okno::updatePosition()
 {
-	sf::Vector2f recttmp = rectangle.getPosition();
-	sf::Vector2f titletmp = winTitle.getPosition();
-	sf::Vector2f closeTemp = closeButton.getPosition();
+	//sf::Vector2f recttmp = rectangle.getPosition();
+	//sf::Vector2f titletmp = winTitle.getPosition();
+	//sf::Vector2f closeTemp = closeButton.getPosition();
+	//sf::Vector2f leftBoundTemp = leftBound.getPosition();
 	sf::Vector2i newMouse = sf::Mouse::getPosition(*window);
 	if (newMouse.x >= static_cast<int>(window->getSize().x) || newMouse.y >= static_cast<int>(window->getSize().y) )
 		return;
-	rectangle.setPosition(recttmp.x + newMouse.x - lastMouse.x, recttmp.y + newMouse.y - lastMouse.y);
-	winTitle.setPosition(titletmp.x + newMouse.x - lastMouse.x, titletmp.y + newMouse.y - lastMouse.y);
-	closeButton.setPosition(closeTemp.x + newMouse.x - lastMouse.x, closeTemp.y + newMouse.y - lastMouse.y);
+	rectangle.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	//rectangle.setPosition(recttmp.x + newMouse.x - lastMouse.x, recttmp.y + newMouse.y - lastMouse.y);
+	winTitle.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	//winTitle.setPosition(titletmp.x + newMouse.x - lastMouse.x, titletmp.y + newMouse.y - lastMouse.y);
+	//closeButton.setPosition(closeTemp.x + newMouse.x - lastMouse.x, closeTemp.y + newMouse.y - lastMouse.y);
+	closeButton.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	leftBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	rightBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	downBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	lastMouse = newMouse;
 }
 
@@ -96,6 +115,9 @@ void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(winTitle);
 	target.draw(rectangle);
 	target.draw(closeButton);
+	target.draw(leftBound);
+	target.draw(rightBound);
+	target.draw(downBound);
 
 }
 

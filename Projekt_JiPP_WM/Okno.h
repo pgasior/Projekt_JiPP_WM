@@ -28,7 +28,9 @@ private:
 	sf::RectangleShape rectangle;
 	sf::RenderWindow *window;
 	sf::RectangleShape closeButton;
-
+	sf::RectangleShape leftBound;
+	sf::RectangleShape rightBound;
+	sf::RectangleShape downBound;
 	//sf::Texture *closeButtonTexture;
 	const float winh = 20.0f;
 	float x;
