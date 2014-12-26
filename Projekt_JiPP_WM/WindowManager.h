@@ -21,5 +21,7 @@ private:
 	bool mouse_hold;
 	Okno *movingWindow;
 	sf::Texture closeButtonTexture;
+	sf::Texture titleBarTexture;
+	sf::Texture windowTexture;
 };
 

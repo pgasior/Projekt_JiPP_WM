@@ -29,9 +29,9 @@ int main()
 	WindowManager wm(&window);
 
 
-	wm.addWindow(10.0f, 10.0f, 90.0f, 90.0f, "Okno1", sf::Color::Green);
-	wm.addWindow(50.0f, 60.0f, 35.0f, 78.0f, "Okno2", sf::Color::Blue);
-	wm.addWindow(150.0f, 60.0f, 35.0f, 78.0f, "Okno3", sf::Color::Yellow);
+	wm.addWindow(10.0f, 10.0f, 90.0f, 90.0f, "Okno1", sf::Color::White);
+	wm.addWindow(50.0f, 60.0f, 35.0f, 78.0f, "Okno2", sf::Color::White);
+	wm.addWindow(150.0f, 60.0f, 35.0f, 78.0f, "Okno3", sf::Color::White);
 	while (window.isOpen())
 	{
 		sf::Event event;

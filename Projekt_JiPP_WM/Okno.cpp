@@ -3,15 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 
-Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture) : x(x), y(y), w(w), h(h), closeButtonTexture(closeButtonTexture)
+Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture) : x(x), y(y), w(w), h(h)//, closeButtonTexture(closeButtonTexture)
 {
 
 	window = win;
 	winTitle = sf::RectangleShape(sf::Vector2f(w, winh));
 	winTitle.setPosition(x, y);
+	winTitle.setTexture(titleBarTexture);
 	rectangle = sf::RectangleShape(sf::Vector2f(w, h));
 	rectangle.setPosition(x, y + winh);
 	rectangle.setFillColor(kolor);
+	rectangle.setTexture(windowTexture);
 
 	closeButton = sf::RectangleShape(sf::Vector2f(16, 16));
 	closeButton.setPosition(x + w - 16 - 2, y + 2);

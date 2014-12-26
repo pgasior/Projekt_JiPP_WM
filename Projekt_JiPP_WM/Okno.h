@@ -5,7 +5,7 @@
 class Okno : public sf::Drawable, public sf::Transformable
 {
 public:
-	Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture);
+	Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture);
 	Okno();
 	~Okno();
 	void operator=(const Okno &N);
@@ -28,7 +28,8 @@ private:
 	sf::RectangleShape rectangle;
 	sf::RenderWindow *window;
 	sf::RectangleShape closeButton;
-	sf::Texture *closeButtonTexture;
+
+	//sf::Texture *closeButtonTexture;
 	const float winh = 20.0f;
 	float x;
 	float y;
