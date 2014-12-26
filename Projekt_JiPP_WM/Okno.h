@@ -13,6 +13,7 @@ public:
 	sf::FloatRect getGlobalBounds();
 	bool Clicked();
 	bool titleBarClicked();
+	bool closeButtonClicked();
 	sf::Vector2f getPosition();
 	void startMove();
 	void setPosition(sf::Vector2i nowa);

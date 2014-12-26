@@ -41,6 +41,12 @@ sf::Vector2f Okno::getPosition()
 {
 	return rectangle.getPosition();
 }
+
+bool Okno::closeButtonClicked()
+{
+	sf::Vector2f myszf(float(sf::Mouse::getPosition(*window).x), float(sf::Mouse::getPosition(*window).y));
+	return closeButton.getGlobalBounds().contains(myszf);
+}
 void Okno::startMove()
 {
 	lastMouse = sf::Mouse::getPosition(*window);

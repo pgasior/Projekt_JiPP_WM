@@ -30,11 +30,19 @@ void WindowManager::pollLeftMousePressedEvents()
 			Okna.push_back(*it);
 			it.getnode()->remove();
 			it = Okna.rbegin();
+
+			
 				
 			if (it->titleBarClicked())
 			{
 				movingWindow = &(*it);
 				it->startMove();
+			}
+			if (it->closeButtonClicked())
+			{
+				it.getnode()->remove();
+				it = Okna.rbegin();
+				break;
 			}
 			top = true;
 		}		

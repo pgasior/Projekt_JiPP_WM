@@ -23,6 +23,7 @@ int main()
 	text.setColor(sf::Color::Red);
 
 	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
+	window.setFramerateLimit(60);
 
 	MyList<Okno> Okna;
 	WindowManager wm(&window);
