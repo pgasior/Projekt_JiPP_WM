@@ -34,7 +34,7 @@ public:
 		void setNext(Node* newNext);
 		void setVal(typ* newVal);
 		void setList(MyList<typ> *lst);
-		void remove();
+		void remove(bool del);
 
 	private:
 		Node *next;
@@ -202,12 +202,13 @@ public:
 
 	MyList();
 	~MyList();
-	void push_back(typ frac);
+	typ* push_back(typ frac);
+	typ* push_back(typ *frac);
 	Iterator begin();
 	ReverseIterator rbegin();
 	Iterator end();
 	ReverseIterator rend();
-	int size();
+	int size() const;
 	Node *front;
 	Node *back;
 	Node *list_end;
@@ -249,8 +250,9 @@ MyList<typ>::~MyList()
 }
 
 template <class typ>
-void MyList<typ>::push_back(typ frac)
+typ* MyList<typ>::push_back(typ frac)
 {
+	//std::cout << &frac << std::endl;
 	MyList<typ>::Node *p = new MyList<typ>::Node();
 	typ *tmpfrac = new typ(frac);
 	p->setVal(tmpfrac);
@@ -268,6 +270,30 @@ void MyList<typ>::push_back(typ frac)
 		list_start->setNext(front);
 	}
 	this->_size++;
+	return tmpfrac;
+}
+
+template <class typ>
+typ* MyList<typ>::push_back(typ *frac)
+{
+	MyList<typ>::Node *p = new MyList<typ>::Node();
+	typ *tmpfrac = frac;
+	p->setVal(tmpfrac);
+	if (back) back->setNext(p);
+	p->setNext(list_end);
+	p->setPrev(back);
+	p->setList(this);
+	back = p;
+	list_end->setPrev(back);
+	//elptr = *(back->getVal());
+	if (!front)
+	{
+		front = back;
+		front->setPrev(list_start);
+		list_start->setNext(front);
+	}
+	this->_size++;
+	return tmpfrac;
 }
 
 template <class typ>
@@ -293,7 +319,7 @@ typename MyList<typ>::ReverseIterator MyList<typ>::rend()
 }
 
 template <class typ>
-int MyList<typ>::size()
+int MyList<typ>::size() const
 {
 	return this->_size;
 }
@@ -348,15 +374,13 @@ void MyList<typ>::Node::setVal(typ* newVal)
 }
 
 template <class typ>
-void MyList<typ>::Node::remove()
+void MyList<typ>::Node::remove(bool del)
 {
 	//_size--;
 	Node *tmp;
 	tmp = this;
 	if (prev!=lista->list_start)
 	{
-		
-		
 		prev->setNext(next);
 	}
 	else
@@ -378,8 +402,14 @@ void MyList<typ>::Node::remove()
 		lista->list_end->setPrev(prev);
 		lista->back = prev;
 	}
-		
-	delete (tmp);
+	if (del)
+		delete (tmp);
+	else
+	{
+		tmp->setVal(NULL);
+		delete(tmp);
+	}
+	//lista->_size--;
 }
 
 template <class typ>

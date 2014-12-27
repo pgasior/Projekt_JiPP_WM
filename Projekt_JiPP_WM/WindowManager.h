@@ -2,14 +2,19 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "MyList.h"
+#include "Array.h"
 #include "Okno.h"
+#include "Control.h"
 class WindowManager
 {
 public:
-	void addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor);
+	typedef void(*function)();
+	Okno* addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor);
+	void pollLeftMouseHoldEvents();
 	void pollLeftMousePressedEvents();
 	void pollLeftMouseReleasedEvents();
 	void drawWindows();
+	void addButton(Okno *handle, float control_x, float control_y, float control_w, float control_h, function,  std::string text );
 	WindowManager(sf::RenderWindow *win);
 	~WindowManager();
 
@@ -23,5 +28,6 @@ private:
 	sf::Texture closeButtonTexture;
 	sf::Texture titleBarTexture;
 	sf::Texture windowTexture;
+	sf::Font font;
 };
 

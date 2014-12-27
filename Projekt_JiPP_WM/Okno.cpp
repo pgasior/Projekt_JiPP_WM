@@ -1,12 +1,16 @@
 #include "Okno.h"
 #include <iostream>
+#include "Button.h"
 
 #include <SFML/Graphics.hpp>
 
-Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture) : x(x), y(y), w(w), h(h)//, closeButtonTexture(closeButtonTexture)
+Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font) : x(x), y(y), w(w), h(h), font(font)//, closeButtonTexture(closeButtonTexture)
 {
+	//kontrolki = new 
+	//Kontrolki.push_back(new int(5));
 	winh = 20.0f;
 
+	//view = sf::View(sf::FloatRect(x, y, w, h + winh));
 	window = win;
 	winTitle = sf::RectangleShape(sf::Vector2f(w, winh));
 	winTitle.setPosition(x, y);
@@ -31,6 +35,7 @@ Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::strin
 	rightBound = sf::RectangleShape(sf::Vector2f(2, h));
 	rightBound.setTexture(titleBarTexture);
 	rightBound.setPosition(x+w-2, y + winh);
+	std::cout <<"Okno: " << Okno::font->getInfo().family << std::endl;
 	//movingState = false;
 
 
@@ -51,6 +56,16 @@ bool Okno::titleBarClicked()
 	sf::Vector2f myszf(float(sf::Mouse::getPosition(*window).x), float(sf::Mouse::getPosition(*window).y));
 	sf::FloatRect bound = winTitle.getGlobalBounds();
 	return (bound.contains(myszf));
+}
+void Okno::checkControls()
+{
+	sf::Vector2f myszf(float(sf::Mouse::getPosition(*window).x), float(sf::Mouse::getPosition(*window).y));
+	for (Array<Control*>::Iterator it = Kontrolki.begin(); it != Kontrolki.end(); it++)
+	{
+		if ((*it)->getGlobalBounds().contains(myszf))
+			(*it)->onClick();
+	}
+
 }
 sf::Vector2f Okno::getPosition()
 {
@@ -108,17 +123,31 @@ void Okno::updatePosition()
 	leftBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	rightBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	downBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	for (Array<Control*>::Iterator it = Kontrolki.begin(); it != Kontrolki.end(); it++)
+	{
+		(*it)->move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	}
 	lastMouse = newMouse;
 }
 
 void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	//sf::View tmp = target.getView();
+	//target.setView(view);
 	target.draw(winTitle);
 	target.draw(rectangle);
 	target.draw(closeButton);
 	target.draw(leftBound);
 	target.draw(rightBound);
 	target.draw(downBound);
+	//for (int i = 0; i < Kontrolki.size(); i++)
+	for (Array<Control*>::Iterator it = Kontrolki.begin(); it != Kontrolki.end();it++)
+	{
+		//Kontrolki[i]->draw();
+		target.draw(*(*it));
+	}
+
+	//target.setView(tmp);
 
 }
 
@@ -141,4 +170,38 @@ Okno::Okno()
 
 Okno::~Okno()
 {
+	Kontrolki.clear();
+}
+
+//void Okno::operator=(const Okno &N)
+//{
+//	std::cout << "operator=" << std::endl;
+//}
+Okno::Okno(const Okno &stary)
+{
+	//std::cout << "kopiujacy" << std::endl;
+	winh = stary.winh;
+	x = stary.x;
+	y = stary.y;
+	w = stary.w;
+	h = stary.h;
+	lastMouse = stary.lastMouse;
+	winTitle = stary.winTitle;
+	rectangle = stary.rectangle;
+	window = stary.window;
+	closeButton = stary.closeButton;
+	leftBound = stary.leftBound;
+	rightBound = stary.rightBound;
+	downBound  =stary.downBound;
+	font = stary.font;
+}
+
+void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, onCLickFunction funkcja)
+{
+	//kontrolka->setFont(font);
+	std::cout << "Okno adres " << font << std::endl;
+	Button * tmp = new Button(x + cx, y + cy + winh, cw, ch, text, font, funkcja);
+	std::cout << "NEW BUTTON " << tmp << std::endl;
+	Kontrolki.push_back(tmp);
+	//delete tmp;
 }

@@ -82,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Container.h" />
+    <ClInclude Include="Control.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="MyList.h" />
     <ClInclude Include="Okno.h" />
@@ -92,7 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Array.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Container.cpp" />
+    <ClCompile Include="Control.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyList.cpp" />

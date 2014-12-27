@@ -13,8 +13,8 @@ template <class typ>
 class Container
 {
 public:
-        virtual void push_back(typ) = 0;
-        virtual int size() = 0;
+        virtual typ* push_back(typ) = 0;
+        virtual int size() const = 0;
     protected:
         int _size;
     private:

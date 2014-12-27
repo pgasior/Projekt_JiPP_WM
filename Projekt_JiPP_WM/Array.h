@@ -12,10 +12,10 @@ using namespace std;
 class unknown_element_exception : public std::exception
 {
 
-    virtual const char* what() const throw()
-    {
-        return "Probowano uzyskac dostep do nieistniejacego elementu ";
-    }
+	virtual const char* what() const throw()
+	{
+		return "Probowano uzyskac dostep do nieistniejacego elementu ";
+	}
 } ;
 
 template <class typ>
@@ -23,87 +23,87 @@ class Array : public Container<typ>
 {
 
 public:
-    class Iterator : public ::Iterator<typ>
-    {
-    public:
-        Iterator(typ *fracptr) : fracptr(fracptr) {}
-        Iterator(Array arr) {}
-        Iterator& operator++()
-        {
-            fracptr++;
-            return *this;
-        }
-        Iterator operator++(int)
-        {
-            Iterator tmp = fracptr;
-            fracptr++;
-            return tmp;
-        }
-        Iterator& operator--()
-        {
-            fracptr--;
-            return *this;
-        }
-        Iterator operator--(int)
-        {
-            Iterator tmp = fracptr;
-            fracptr--;
-            return tmp;
-        }
-        bool operator==(const ::Iterator<typ>& arg2)
-        {
-            //cout << "Porownanie z Array\n";
-            return fracptr==arg2.get();
-        }
-        bool operator!=(const ::Iterator<typ>& arg2)
-        {
-            return fracptr!=arg2.get();
-        }
-        bool operator<(const Iterator& arg2)
-        {
-            return fracptr<arg2.get();
-        }
-        bool operator>(const Iterator& arg2)
-        {
-            return fracptr>arg2.get();
-        }
-        typ* operator->()
-        {
-            return fracptr;
-        }
-        typ& operator*()
-        {
-            return *fracptr;
-        }
-        typ* get() const
-        {
-            return fracptr;
-        }
-        Iterator(const Iterator& it)
-        {
-            fracptr = it.get();
-        }
-    private:
-        typ* fracptr;
-        int indeks;
-    };
+	class Iterator : public ::Iterator<typ>
+	{
+	public:
+		Iterator(typ *fracptr) : fracptr(fracptr) {}
+		Iterator(Array arr) {}
+		Iterator& operator++()
+		{
+			fracptr++;
+			return *this;
+		}
+		Iterator operator++(int)
+		{
+			Iterator tmp = fracptr;
+			fracptr++;
+			return tmp;
+		}
+		Iterator& operator--()
+		{
+			fracptr--;
+			return *this;
+		}
+		Iterator operator--(int)
+		{
+			Iterator tmp = fracptr;
+			fracptr--;
+			return tmp;
+		}
+		bool operator==(const ::Iterator<typ>& arg2)
+		{
+			//cout << "Porownanie z Array\n";
+			return fracptr==arg2.get();
+		}
+		bool operator!=(const ::Iterator<typ>& arg2)
+		{
+			return fracptr!=arg2.get();
+		}
+		bool operator<(const Iterator& arg2)
+		{
+			return fracptr<arg2.get();
+		}
+		bool operator>(const Iterator& arg2)
+		{
+			return fracptr>arg2.get();
+		}
+		typ* operator->()
+		{
+			return fracptr;
+		}
+		typ& operator*()
+		{
+			return *fracptr;
+		}
+		typ* get() const
+		{
+			return fracptr;
+		}
+		Iterator(const Iterator& it)
+		{
+			fracptr = it.get();
+		}
+	private:
+		typ* fracptr;
+		int indeks;
+	};
 
-    Array();
-    Array(int size);
-    ~Array();
-    void push_back(typ newfrac);
-    Iterator begin();
-    Iterator end();
-    int size();
-    void clear();
-    typ& operator[](int i);
+	Array();
+	Array(int size);
+	~Array();
+	typ* push_back(typ newfrac);
+	//typ* push_back(typ newfrac);
+	Iterator begin() const;
+	Iterator end() const;
+	int size() const;
+	void clear();
+	typ& operator[](int i);
 
 protected:
 private:
-    typ* tab;
-    int _size;
+	typ *tab;
+	int _size;
 };
-
 
 
 
@@ -111,96 +111,122 @@ private:
 template <class typ>
 Array<typ>::Array()
 {
-    _size=0;
-    try
-    {
-        tab = new typ[_size];
-    }
+	_size=0;
+	///try
+	//{
+		tab = new typ[0];
+	//}
 
-    catch (std::bad_alloc& ba)
-    {
-        std::cerr << "Nie moge utowrzyc tablicy. bad_alloc: " << ba.what() << '\n';
-        exit(1);
-    }
+	//catch (std::bad_alloc& ba)
+	/*{
+		std::cerr << "Nie moge utowrzyc tablicy. bad_alloc: " << ba.what() << '\n';
+		exit(1);
+	}*/
+		//std::cout << "NEW: " << tab << std::endl;
+	
 }
 
 
 template <class typ>
 Array<typ>::Array(int size)
 {
-    _size=size;
-    if(size>20)
-        throw (int)-1;
-    try
-    {
-        tab = new typ[_size];
-    }
-    catch (std::bad_alloc& ba)
-    {
-        std::cerr << "Nie moge utowrzyc tablicy. bad_alloc: " << ba.what() << '\n';
-        exit(1);
-    }
+	_size=size;
+	try
+	{
+		tab = new typ[_size];
+	}
+	catch (std::bad_alloc& ba)
+	{
+		std::cerr << "Nie moge utowrzyc tablicy. bad_alloc: " << ba.what() << '\n';
+		exit(1);
+	}
 }
 
 template <class typ>
 Array<typ>::~Array()
 {
-    if(tab!=NULL)
-        delete[](tab);
+	std::cout << "Delete: " << tab << std::endl;
+	if (tab != NULL)
+		delete[] tab;
 }
 
 template <class typ>
-void Array<typ>::push_back(typ newfrac)
+typ* Array<typ>::push_back(typ newfrac)
 {
-    if((_size+1)>20)
-        throw too_big_exception();
-    _size++;
-    typ *tab_new;
-    try
-    {
-        tab_new = new typ[_size];
-    }
-    catch (std::bad_alloc& ba)
-    {
-        std::cerr << "Nie moge dodac elementu do tablicy. bad_alloc: " << ba.what() << '\n';
-        exit(1);
-    }
-    for(int i=0; i<_size-1; i++)
-        tab_new[i]=tab[i];
-    delete[](tab);
-    tab=tab_new;
-    tab[_size-1]=newfrac;
+	_size++;
+	typ *tab_new;
+	try
+	{
+		tab_new = new typ[_size];
+	}
+	catch (std::bad_alloc& ba)
+	{
+		std::cerr << "Nie moge dodac elementu do tablicy. bad_alloc: " << ba.what() << '\n';
+		exit(1);
+	}
+	for(int i=0; i<_size-1; i++)
+		tab_new[i]=tab[i];
+	delete[](tab);
+	tab=tab_new;
+	tab[_size-1]=newfrac;
+	std::cout << "ARRAY: " << newfrac << std::endl;
+	return &(tab[_size - 1]);
 }
+
+//template <class typ>
+//typ* Array<typ>::push_back(typ newfrac)
+//{
+//	_size++;
+//	typ *tab_new;
+//	try
+//	{
+//		tab_new = new typ[_size];
+//	}
+//	catch (std::bad_alloc& ba)
+//	{
+//		std::cerr << "Nie moge dodac elementu do tablicy. bad_alloc: " << ba.what() << '\n';
+//		exit(1);
+//	}
+//	for (int i = 0; i<_size - 1; i++)
+//		tab_new[i] = tab[i];
+//	delete[](tab);
+//	tab = tab_new;
+//	tab[_size - 1] = newfrac;
+//	return &(tab[_size - 1]);
+//}
+
 
 
 
 template <class typ>
-int Array<typ>::size()
+int Array<typ>::size() const
 {
-    return _size;
+	return _size;
 }
 template <class typ>
 void Array<typ>::clear()
 {
-    delete(tab);
-    tab=NULL;
+	for (int i = 0; i < this->_size; i++)
+		delete tab[i];
+	delete(tab);
+	tab=NULL;
 }
 template <class typ>
 typ& Array<typ>::operator[] (int i)
 {
-    if(i<0 || i>=_size)
-        throw unknown_element_exception();
-    return tab[i];
+	if(i<0 || i>=_size)
+		throw unknown_element_exception();
+	return tab[i];
 }
 template <class typ>
-typename Array<typ>::Iterator Array<typ>::begin()
+typename Array<typ>::Iterator Array<typ>::begin() const
 {
-    return Array<typ>::Iterator(tab);
+	return Array<typ>::Iterator(tab);
 }
 template <class typ>
-typename Array<typ>::Iterator Array<typ>::end()
+typename Array<typ>::Iterator Array<typ>::end() const
 {
-    return Array<typ>::Iterator(tab+_size);
+	return Array<typ>::Iterator(tab+_size);
 }
 
 

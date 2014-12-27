@@ -7,20 +7,20 @@
 #include "Array.h"
 #include "MyList.h"
 #include "WindowManager.h"
-//#include <vld.h>
+#include "Button.h"
+#include <vld.h>
+
+void b1()
+{
+	std::cout << "Test" << std::endl;
+}
 
 int main()
 {
-	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-		// error...
-	}
-	sf::Text text;
+
 
 	// select the font
-	text.setFont(font); // font is a sf::Font
-	text.setColor(sf::Color::Red);
+
 
 	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
 	window.setFramerateLimit(60);
@@ -29,9 +29,11 @@ int main()
 	WindowManager wm(&window);
 
 
-	wm.addWindow(10.0f, 10.0f, 90.0f, 90.0f, "Okno1", sf::Color::White);
+	Okno *handle = wm.addWindow(10.0f, 10.0f, 90.0f, 90.0f, "Okno1", sf::Color::White);
 	wm.addWindow(50.0f, 60.0f, 35.0f, 78.0f, "Okno2", sf::Color::White);
 	wm.addWindow(150.0f, 60.0f, 35.0f, 78.0f, "Okno3", sf::Color::White);
+
+	handle->addButton(1, 1, 100, 40, "tekst", b1);
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -53,14 +55,15 @@ int main()
 				}
 			}
 		}
+		//std::cout << "tu" << std::endl;
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			wm.pollLeftMousePressedEvents();
+			wm.pollLeftMouseHoldEvents();
 		}
 		window.clear();
 		wm.drawWindows();
-		window.draw(text);
+	
 
 		window.display();
 	}
