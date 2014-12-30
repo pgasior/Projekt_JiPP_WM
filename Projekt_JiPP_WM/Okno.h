@@ -6,6 +6,7 @@
 #include "MyList.h"
 #include "Control.h"
 #include "Button.h"
+#include "CheckBox.h"
 class Okno : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -29,7 +30,10 @@ public:
 	//void setMovingstate(bool state);
 	void updatePosition();
 	void addButton(float cx, float cy, float cw, float ch, std::string text, onClickFunction funkcja);
+	void addCheckBox(float cx, float cy, std::string text, bool state = false);
 	//void operator=(const Okno &N);
+	Array<Button*> Buttons;
+	Array<CheckBox*> CheckBoxes;
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -54,7 +58,7 @@ private:
 	sf::Vector2i lastMouse;
 	
 	//Array<Control*> Kontrolki;
-	Array<Button*> Buttons;
+
 
 };
 

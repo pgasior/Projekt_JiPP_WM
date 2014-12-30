@@ -66,6 +66,12 @@ void Okno::checkControls()
 			(*it)->onClick();
 	}
 
+	for (Array<CheckBox*>::Iterator it = CheckBoxes.begin(); it != CheckBoxes.end(); it++)
+	{
+		if ((*it)->getGlobalBounds().contains(myszf))
+			(*it)->onClick();
+	}
+
 }
 sf::Vector2f Okno::getPosition()
 {
@@ -127,6 +133,11 @@ void Okno::updatePosition()
 	{
 		(*it)->move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	}
+
+	for (Array<CheckBox*>::Iterator it = CheckBoxes.begin(); it != CheckBoxes.end(); it++)
+	{
+		(*it)->move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	}
 	lastMouse = newMouse;
 }
 
@@ -144,6 +155,10 @@ void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for (Array<Button*>::Iterator it = Buttons.begin(); it != Buttons.end();it++)
 	{
 		//Kontrolki[i]->draw();
+		target.draw(*(*it));
+	}
+	for (Array<CheckBox*>::Iterator it = CheckBoxes.begin(); it != CheckBoxes.end(); it++)
+	{
 		target.draw(*(*it));
 	}
 
@@ -171,6 +186,7 @@ Okno::Okno()
 Okno::~Okno()
 {
 	Buttons.clear();
+	CheckBoxes.clear();
 }
 
 //void Okno::operator=(const Okno &N)
@@ -204,4 +220,9 @@ void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, o
 	std::cout << "NEW BUTTON " << tmp << std::endl;*/
 	Buttons.push_back(new Button(x + cx, y + cy + winh, cw, ch, text, font, funkcja , this));
 	//delete tmp;
+}
+
+void Okno::addCheckBox(float cx, float cy, std::string text, bool state)
+{
+	CheckBoxes.push_back(new CheckBox(x+cx, y+cy+winh, text, font, this, state));
 }

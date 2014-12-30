@@ -12,7 +12,11 @@
 
 void b1(Okno* root)
 {
-	std::cout << "Test" << std::endl;
+	//std::cout << "Test" << std::endl;
+	if (root->CheckBoxes[0]->isChecked())
+		std::cout << "CheckBox zaznaczony" << std::endl;
+	else
+		std::cout << "CheckBox odzaznaczony" << std::endl;
 }
 
 int main()
@@ -34,6 +38,7 @@ int main()
 	wm.addWindow(150.0f, 60.0f, 35.0f, 78.0f, "Okno3", sf::Color::White);
 
 	handle->addButton(1, 1, 40, 20, "tekst", b1);
+	handle->addCheckBox(1, 50, "CheckBox 1", false);
 	while (window.isOpen())
 	{
 		sf::Event event;
