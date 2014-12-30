@@ -52,7 +52,6 @@ public:
 		}
 		bool operator==(const ::Iterator<typ>& arg2)
 		{
-			//cout << "Porownanie z Array\n";
 			return fracptr==arg2.get();
 		}
 		bool operator!=(const ::Iterator<typ>& arg2)
@@ -92,8 +91,7 @@ public:
 	Array(int size);
 	Array(const Array &stara);
 	~Array();
-	typ* push_back(typ newfrac);
-	//typ* push_back(typ newfrac);
+	typ* push_back(typ newel);
 	Iterator begin() const;
 	Iterator end() const;
 	int size() const;
@@ -113,17 +111,8 @@ template <class typ>
 Array<typ>::Array()
 {
 	_size=0;
-	///try
-	//{
-		tab = new typ[0];
-	//}
+	tab = new typ[0];
 
-	//catch (std::bad_alloc& ba)
-	/*{
-		std::cerr << "Nie moge utowrzyc tablicy. bad_alloc: " << ba.what() << '\n';
-		exit(1);
-	}*/
-		//std::cout << "NEW: " << tab << std::endl;
 	
 }
 
@@ -154,13 +143,12 @@ Array<typ>::Array(int size)
 template <class typ>
 Array<typ>::~Array()
 {
-	//std::cout << "Delete: " << tab << std::endl;
 	if (tab != NULL)
 		delete[] tab;
 }
 
 template <class typ>
-typ* Array<typ>::push_back(typ newfrac)
+typ* Array<typ>::push_back(typ newel)
 {
 	_size++;
 	typ *tab_new;
@@ -177,41 +165,16 @@ typ* Array<typ>::push_back(typ newfrac)
 		tab_new[i]=tab[i];
 	delete[](tab);
 	tab=tab_new;
-	tab[_size-1]=newfrac;
-	//std::cout << "ARRAY: " << newfrac << std::endl;
+	tab[_size-1]=newel;
 	return &(tab[_size - 1]);
 }
-
-//template <class typ>
-//typ* Array<typ>::push_back(typ newfrac)
-//{
-//	_size++;
-//	typ *tab_new;
-//	try
-//	{
-//		tab_new = new typ[_size];
-//	}
-//	catch (std::bad_alloc& ba)
-//	{
-//		std::cerr << "Nie moge dodac elementu do tablicy. bad_alloc: " << ba.what() << '\n';
-//		exit(1);
-//	}
-//	for (int i = 0; i<_size - 1; i++)
-//		tab_new[i] = tab[i];
-//	delete[](tab);
-//	tab = tab_new;
-//	tab[_size - 1] = newfrac;
-//	return &(tab[_size - 1]);
-//}
-
-
-
 
 template <class typ>
 int Array<typ>::size() const
 {
 	return _size;
 }
+
 template <class typ>
 void Array<typ>::clear()
 {
@@ -220,6 +183,7 @@ void Array<typ>::clear()
 	delete(tab);
 	tab=NULL;
 }
+
 template <class typ>
 typ& Array<typ>::operator[] (int i)
 {
@@ -227,18 +191,17 @@ typ& Array<typ>::operator[] (int i)
 		throw unknown_element_exception();
 	return tab[i];
 }
+
 template <class typ>
 typename Array<typ>::Iterator Array<typ>::begin() const
 {
 	return Array<typ>::Iterator(tab);
 }
+
 template <class typ>
 typename Array<typ>::Iterator Array<typ>::end() const
 {
 	return Array<typ>::Iterator(tab+_size);
 }
-
-
-
 
 #endif // ARRAY_H

@@ -2,7 +2,6 @@
 #include "Control.h"
 #include <string>
 #include <SFML/Graphics.hpp>
-//#include "Okno.h"
 class Button : public Control
 {
 public:
@@ -19,7 +18,5 @@ private:
 	sf::RectangleShape outer;
 	sf::RectangleShape inner;
 	sf::Text buttonText;
-
-
 };
 

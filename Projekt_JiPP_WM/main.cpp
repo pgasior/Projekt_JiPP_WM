@@ -12,7 +12,6 @@
 
 void b1(Okno* root)
 {
-	//std::cout << "Test" << std::endl;
 	if (root->CheckBoxes[0]->isChecked())
 		std::cout << "CheckBox zaznaczony" << std::endl;
 	else
@@ -21,11 +20,6 @@ void b1(Okno* root)
 
 int main()
 {
-
-
-	// select the font
-
-
 	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
 	window.setFramerateLimit(60);
 
@@ -48,7 +42,6 @@ int main()
 				window.close();
 			if (event.type == sf::Event::Resized)
 			{
-				// update the view to the new size of the window
 				sf::FloatRect visibleArea(0, 0, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
 				window.setView(sf::View(visibleArea));
 			}
@@ -60,7 +53,6 @@ int main()
 				}
 			}
 		}
-		//std::cout << "tu" << std::endl;
 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
@@ -68,7 +60,6 @@ int main()
 		}
 		window.clear();
 		wm.drawWindows();
-	
 
 		window.display();
 	}

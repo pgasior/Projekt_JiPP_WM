@@ -1,12 +1,10 @@
 #pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
-//#include "Okno.h"
 class Okno;
 class Control : public sf::Drawable, public sf::Transformable
 {
 public:
-
 	virtual void onClick() = 0;
 	virtual ~Control();
 	virtual void move(float delta_x, float delta_y) = 0;

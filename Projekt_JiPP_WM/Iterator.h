@@ -11,7 +11,7 @@ class Iterator
         virtual typ* operator->()=0;
         virtual typ & operator*()=0;
         virtual Iterator<typ>& operator--() = 0;     //prefix
-        virtual bool operator==(const Iterator<typ>& arg2)  = 0; //{cout << "Porownanie z Iterator\n";return  0;}
+        virtual bool operator==(const Iterator<typ>& arg2)  = 0; 
         virtual bool operator!=(const Iterator<typ>& arg2) = 0;
     virtual typ *get() const = 0;
     protected:

@@ -21,7 +21,6 @@ public:
 private:
 	sf::RenderWindow *window;
 	MyList<Okno> Okna;
-	//bool moving;
 	bool top;
 	bool mouse_hold;
 	Okno *movingWindow;

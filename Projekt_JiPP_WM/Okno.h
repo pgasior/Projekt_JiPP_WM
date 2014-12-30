@@ -13,10 +13,8 @@ public:
 	
 	Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font);
 	Okno();
-	/*Okno(const Okno &stary);*/
 	~Okno();
-	//void operator=(const Okno &N);
-	typedef void(*onClickFunction)(Okno*);// Okno*);
+	typedef void(*onClickFunction)(Okno*);
 	sf::FloatRect getGlobalBounds();
 	bool Clicked();
 	bool titleBarClicked();
@@ -24,14 +22,11 @@ public:
 	void checkControls();
 	sf::Vector2f getPosition();
 	void startMove();
-	void setPosition(sf::Vector2i nowa);
+	//void setPosition(sf::Vector2i nowa);
 	void saveMousePosition();
-	//bool getMovingState();
-	//void setMovingstate(bool state);
 	void updatePosition();
 	void addButton(float cx, float cy, float cw, float ch, std::string text, onClickFunction funkcja);
 	void addCheckBox(float cx, float cy, std::string text, bool state = false);
-	//void operator=(const Okno &N);
 	Array<Button*> Buttons;
 	Array<CheckBox*> CheckBoxes;
 
@@ -45,20 +40,12 @@ private:
 	sf::RectangleShape rightBound;
 	sf::RectangleShape downBound;
 	sf::Font *font;
-	//sf::Texture *closeButtonTexture;
 	float winh;
 	float x;
 	float y;
 	float w;
 	float h;
-	//sf::View view;
-	//sf::View viewTitle;
-	//sf::View viewRectangle;
-	//sf::View winView;
 	sf::Vector2i lastMouse;
-	
-	//Array<Control*> Kontrolki;
-
 
 };
 

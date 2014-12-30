@@ -42,6 +42,7 @@ public:
 		typ *val;
 		MyList<typ> *lista;
 	};
+	friend Node;
 	class Iterator : public ::Iterator<typ>
 	{
 	public:
@@ -61,7 +62,6 @@ public:
 		}
 		Iterator operator++(int)
 		{
-			//if((elptr==NULL) || (elnode->getNext()->getVal()==NULL))
 			if((elptr==NULL) || (elnode->getNext()==NULL))
 				throw after_last_exception();
 			Iterator tmp = elnode;
@@ -140,7 +140,6 @@ public:
 		}
 		ReverseIterator operator--(int)
 		{
-			//if((elptr==NULL) || (elnode->getNext()->getVal()==NULL))
 			if ((elptr == NULL) || (elnode->getNext() == NULL))
 				throw after_last_exception();
 			ReverseIterator tmp = elnode;
@@ -194,7 +193,6 @@ public:
 			elnode = it.getnode();
 		}
 
-
 	private:
 		Node* elnode;
 		typ *elptr;
@@ -202,37 +200,41 @@ public:
 
 	MyList();
 	~MyList();
-	typ* push_back(typ frac);
-	typ* push_back(typ *frac);
+	typ* push_back(typ el);
+	typ* push_back(typ *el);
 	Iterator begin();
 	ReverseIterator rbegin();
 	Iterator end();
 	ReverseIterator rend();
 	int size() const;
+	
 	Node *front;
 	Node *back;
 	Node *list_end;
 	Node *list_start;
 
-protected:
 private:
-
-	//Fraction *elptr;
+	void decSize();
 };
 
 template <class typ>
 MyList<typ>::MyList()
 {
 	list_end = new MyList<typ>::Node();
-	//list_end->setVal(NULL);
 	list_end->setNext(NULL);
 	list_end->setNext(NULL);
 	list_start = new MyList<typ>::Node();
 	list_start->setNext(NULL);
 	list_start->setNext(NULL);
-	front = back = NULL;// elptr =NULL;
+	front = back = NULL;
 
 	this->_size = 0;
+}
+
+template<class typ>
+void MyList<typ>::decSize()
+{
+	this->_size--;
 }
 
 template <class typ>
@@ -241,7 +243,6 @@ MyList<typ>::~MyList()
 	while((front!=NULL) && front->getNext()!=NULL)
 	{
 		MyList<typ>::Node* tmp = front->getNext();
-		//delete front->getVal();
 		delete front;
 		front = tmp;
 	}
@@ -250,19 +251,17 @@ MyList<typ>::~MyList()
 }
 
 template <class typ>
-typ* MyList<typ>::push_back(typ frac)
+typ* MyList<typ>::push_back(typ el)
 {
-	//std::cout << &frac << std::endl;
 	MyList<typ>::Node *p = new MyList<typ>::Node();
-	typ *tmpfrac = new typ(frac);
-	p->setVal(tmpfrac);
+	typ *tmpel = new typ(el);
+	p->setVal(tmpel);
 	if(back) back->setNext(p);
 	p->setNext(list_end);
 	p->setPrev(back);
 	p->setList(this);
 	back = p;
 	list_end->setPrev(back);
-	//elptr = *(back->getVal());
 	if (!front)  
 	{
 		front = back;
@@ -270,22 +269,21 @@ typ* MyList<typ>::push_back(typ frac)
 		list_start->setNext(front);
 	}
 	this->_size++;
-	return tmpfrac;
+	return tmpel;
 }
 
 template <class typ>
-typ* MyList<typ>::push_back(typ *frac)
+typ* MyList<typ>::push_back(typ *el)
 {
 	MyList<typ>::Node *p = new MyList<typ>::Node();
-	typ *tmpfrac = frac;
-	p->setVal(tmpfrac);
+	typ *tmpel = el;
+	p->setVal(tmpel);
 	if (back) back->setNext(p);
 	p->setNext(list_end);
 	p->setPrev(back);
 	p->setList(this);
 	back = p;
 	list_end->setPrev(back);
-	//elptr = *(back->getVal());
 	if (!front)
 	{
 		front = back;
@@ -293,7 +291,7 @@ typ* MyList<typ>::push_back(typ *frac)
 		list_start->setNext(front);
 	}
 	this->_size++;
-	return tmpfrac;
+	return tmpel;
 }
 
 template <class typ>
@@ -301,6 +299,7 @@ typename MyList<typ>::Iterator MyList<typ>::begin()
 {
 	return Iterator(front);
 }
+
 template <class typ>
 typename MyList<typ>::ReverseIterator MyList<typ>::rbegin()
 {
@@ -312,6 +311,7 @@ typename MyList<typ>::Iterator MyList<typ>::end()
 {
 	return Iterator(list_end);
 }
+
 template <class typ>
 typename MyList<typ>::ReverseIterator MyList<typ>::rend()
 {
@@ -364,7 +364,6 @@ template <class typ>
 typename void MyList<typ>::Node::setNext(typename MyList<typ>::Node *newNext)
 {
 	next = newNext;
-	//std::cout << "Tu " << std::endl;
 }
 
 template <class typ>
@@ -376,9 +375,9 @@ void MyList<typ>::Node::setVal(typ* newVal)
 template <class typ>
 void MyList<typ>::Node::remove(bool del)
 {
-	//_size--;
 	Node *tmp;
 	tmp = this;
+	lista->decSize();
 	if (prev!=lista->list_start)
 	{
 		prev->setNext(next);
@@ -388,13 +387,11 @@ void MyList<typ>::Node::remove(bool del)
 		prev = lista->list_start;
 		lista->list_start->setNext(next);
 		lista->front = next;
-		
 	}
 	
 	if (next!=lista->list_end)
 	{
 		next->setPrev(prev);
-		//std::cout << "Tu " << std::endl;
 	}
 	else
 	{
@@ -409,7 +406,7 @@ void MyList<typ>::Node::remove(bool del)
 		tmp->setVal(NULL);
 		delete(tmp);
 	}
-	//lista->_size--;
+	
 }
 
 template <class typ>
