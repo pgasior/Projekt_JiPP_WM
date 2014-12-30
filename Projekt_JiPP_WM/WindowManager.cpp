@@ -15,7 +15,7 @@ WindowManager::WindowManager(sf::RenderWindow *win)
 	{
 		std::cout << "Blad wczytywania czcionki" << std::endl;
 	}
-	std::cout << "WindowManager: " << font.getInfo().family << std::endl;
+	//std::cout << "WindowManager: " << font.getInfo().family << std::endl;
 	
 }
 
@@ -26,7 +26,7 @@ WindowManager::~WindowManager()
 
 Okno* WindowManager::addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor)
 {
-	std::cout << "WM addr: " << &font << std::endl;
+	//std::cout << "WM addr: " << &font << std::endl;
 	return Okna.push_back(Okno(window, x, y, w, h, title, kolor,&closeButtonTexture,&titleBarTexture,&windowTexture, &font));
 	
 }

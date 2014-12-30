@@ -35,7 +35,7 @@ Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::strin
 	rightBound = sf::RectangleShape(sf::Vector2f(2, h));
 	rightBound.setTexture(titleBarTexture);
 	rightBound.setPosition(x+w-2, y + winh);
-	std::cout <<"Okno: " << Okno::font->getInfo().family << std::endl;
+	//std::cout <<"Okno: " << Okno::font->getInfo().family << std::endl;
 	//movingState = false;
 
 
@@ -60,7 +60,7 @@ bool Okno::titleBarClicked()
 void Okno::checkControls()
 {
 	sf::Vector2f myszf(float(sf::Mouse::getPosition(*window).x), float(sf::Mouse::getPosition(*window).y));
-	for (Array<Control*>::Iterator it = Kontrolki.begin(); it != Kontrolki.end(); it++)
+	for (Array<Button*>::Iterator it = Buttons.begin(); it != Buttons.end(); it++)
 	{
 		if ((*it)->getGlobalBounds().contains(myszf))
 			(*it)->onClick();
@@ -123,7 +123,7 @@ void Okno::updatePosition()
 	leftBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	rightBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	downBound.move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
-	for (Array<Control*>::Iterator it = Kontrolki.begin(); it != Kontrolki.end(); it++)
+	for (Array<Button*>::Iterator it = Buttons.begin(); it != Buttons.end(); it++)
 	{
 		(*it)->move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	}
@@ -141,7 +141,7 @@ void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(rightBound);
 	target.draw(downBound);
 	//for (int i = 0; i < Kontrolki.size(); i++)
-	for (Array<Control*>::Iterator it = Kontrolki.begin(); it != Kontrolki.end();it++)
+	for (Array<Button*>::Iterator it = Buttons.begin(); it != Buttons.end();it++)
 	{
 		//Kontrolki[i]->draw();
 		target.draw(*(*it));
@@ -170,7 +170,7 @@ Okno::Okno()
 
 Okno::~Okno()
 {
-	Kontrolki.clear();
+	Buttons.clear();
 }
 
 //void Okno::operator=(const Okno &N)
@@ -196,12 +196,12 @@ Okno::~Okno()
 //	font = stary.font;
 //}
 
-void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, onCLickFunction funkcja)
+void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, onClickFunction funkcja)
 {
 	//kontrolka->setFont(font);
-	std::cout << "Okno adres " << font << std::endl;
+	/*std::cout << "Okno adres " << font << std::endl;
 	Button * tmp = new Button(x + cx, y + cy + winh, cw, ch, text, font, funkcja);
-	std::cout << "NEW BUTTON " << tmp << std::endl;
-	Kontrolki.push_back(tmp);
+	std::cout << "NEW BUTTON " << tmp << std::endl;*/
+	Buttons.push_back(new Button(x + cx, y + cy + winh, cw, ch, text, font, funkcja , this));
 	//delete tmp;
 }

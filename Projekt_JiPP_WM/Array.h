@@ -154,7 +154,7 @@ Array<typ>::Array(int size)
 template <class typ>
 Array<typ>::~Array()
 {
-	std::cout << "Delete: " << tab << std::endl;
+	//std::cout << "Delete: " << tab << std::endl;
 	if (tab != NULL)
 		delete[] tab;
 }
@@ -178,7 +178,7 @@ typ* Array<typ>::push_back(typ newfrac)
 	delete[](tab);
 	tab=tab_new;
 	tab[_size-1]=newfrac;
-	std::cout << "ARRAY: " << newfrac << std::endl;
+	//std::cout << "ARRAY: " << newfrac << std::endl;
 	return &(tab[_size - 1]);
 }
 

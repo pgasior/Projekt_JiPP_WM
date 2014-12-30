@@ -8,7 +8,7 @@
 class WindowManager
 {
 public:
-	typedef void(*function)();
+	typedef void(*function)(Okno*);
 	Okno* addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor);
 	void pollLeftMouseHoldEvents();
 	void pollLeftMousePressedEvents();

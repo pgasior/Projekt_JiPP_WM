@@ -5,16 +5,17 @@
 #include "Array.h"
 #include "MyList.h"
 #include "Control.h"
+#include "Button.h"
 class Okno : public sf::Drawable, public sf::Transformable
 {
 public:
-	typedef void(*onCLickFunction)();
+	
 	Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font);
 	Okno();
 	/*Okno(const Okno &stary);*/
 	~Okno();
 	//void operator=(const Okno &N);
-
+	typedef void(*onClickFunction)(Okno*);// Okno*);
 	sf::FloatRect getGlobalBounds();
 	bool Clicked();
 	bool titleBarClicked();
@@ -27,7 +28,7 @@ public:
 	//bool getMovingState();
 	//void setMovingstate(bool state);
 	void updatePosition();
-	void addButton(float cx, float cy, float cw, float ch, std::string text, onCLickFunction funkcja);
+	void addButton(float cx, float cy, float cw, float ch, std::string text, onClickFunction funkcja);
 	//void operator=(const Okno &N);
 
 private:
@@ -52,6 +53,8 @@ private:
 	//sf::View winView;
 	sf::Vector2i lastMouse;
 	
-	Array<Control*> Kontrolki;
+	//Array<Control*> Kontrolki;
+	Array<Button*> Buttons;
+
 };
 

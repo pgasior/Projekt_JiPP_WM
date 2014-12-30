@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
+//#include "Okno.h"
+class Okno;
 class Control : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -14,7 +16,7 @@ public:
 	virtual void setFont(sf::Font) = 0;
 
 protected:
-	Control(float x, float y, float w, float h, std::string text, sf::Font* font);
+	Control(float x, float y, float w, float h, std::string text, sf::Font* font , Okno* root);
 	Control();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 	std::string text;
@@ -23,5 +25,6 @@ protected:
 	float w; 
 	float h;
 	sf::Font *font;
+	Okno* root;
 };
 
