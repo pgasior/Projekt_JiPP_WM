@@ -177,24 +177,24 @@ Okno::~Okno()
 //{
 //	std::cout << "operator=" << std::endl;
 //}
-Okno::Okno(const Okno &stary)
-{
-	//std::cout << "kopiujacy" << std::endl;
-	winh = stary.winh;
-	x = stary.x;
-	y = stary.y;
-	w = stary.w;
-	h = stary.h;
-	lastMouse = stary.lastMouse;
-	winTitle = stary.winTitle;
-	rectangle = stary.rectangle;
-	window = stary.window;
-	closeButton = stary.closeButton;
-	leftBound = stary.leftBound;
-	rightBound = stary.rightBound;
-	downBound  =stary.downBound;
-	font = stary.font;
-}
+//Okno::Okno(const Okno &stary)
+//{
+//	//std::cout << "kopiujacy" << std::endl;
+//	winh = stary.winh;
+//	x = stary.x;
+//	y = stary.y;
+//	w = stary.w;
+//	h = stary.h;
+//	lastMouse = stary.lastMouse;
+//	winTitle = stary.winTitle;
+//	rectangle = stary.rectangle;
+//	window = stary.window;
+//	closeButton = stary.closeButton;
+//	leftBound = stary.leftBound;
+//	rightBound = stary.rightBound;
+//	downBound  =stary.downBound;
+//	font = stary.font;
+//}
 
 void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, onCLickFunction funkcja)
 {

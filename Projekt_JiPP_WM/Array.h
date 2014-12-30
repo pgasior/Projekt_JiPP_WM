@@ -90,6 +90,7 @@ public:
 
 	Array();
 	Array(int size);
+	Array(const Array &stara);
 	~Array();
 	typ* push_back(typ newfrac);
 	//typ* push_back(typ newfrac);
@@ -126,6 +127,14 @@ Array<typ>::Array()
 	
 }
 
+template <class typ>
+Array<typ>::Array(const Array &stara)
+{
+	_size = stara._size;
+	tab = new typ[_size];
+	for (int i = 0; i < _size; i++)
+		tab[i] = stara.tab[i];
+}
 
 template <class typ>
 Array<typ>::Array(int size)

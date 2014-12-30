@@ -11,7 +11,7 @@ public:
 	typedef void(*onCLickFunction)();
 	Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font);
 	Okno();
-	Okno(const Okno &stary);
+	/*Okno(const Okno &stary);*/
 	~Okno();
 	//void operator=(const Okno &N);
 
