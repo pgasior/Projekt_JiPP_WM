@@ -8,15 +8,17 @@
 class WindowManager
 {
 public:
-	typedef void(*function)(Okno*);
+	//typedef void(*function)(Okno*);
 	Okno* addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor);
 	void pollLeftMouseHoldEvents();
 	void pollLeftMousePressedEvents();
 	void pollLeftMouseReleasedEvents();
 	void drawWindows();
-	void addButton(Okno *handle, float control_x, float control_y, float control_w, float control_h, function,  std::string text );
+	void MessageBox(std::string message);
+	//void addButton(Okno *handle, float control_x, float control_y, float control_w, float control_h, function,  std::string text );
 	WindowManager(sf::RenderWindow *win);
 	~WindowManager();
+	typedef void(*onClickFunction)(Okno*);
 
 private:
 	sf::RenderWindow *window;
@@ -28,5 +30,6 @@ private:
 	sf::Texture titleBarTexture;
 	sf::Texture windowTexture;
 	sf::Font font;
+	static void closeWindowFunction(Okno*);
 };
 

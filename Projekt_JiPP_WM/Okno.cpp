@@ -1,12 +1,13 @@
 #include "Okno.h"
 #include <iostream>
 #include "Button.h"
-
+#include "WindowManager.h"
 #include <SFML/Graphics.hpp>
 
-Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font) : x(x), y(y), w(w), h(h), font(font)//, closeButtonTexture(closeButtonTexture)
+Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font, WindowManager* wm) : x(x), y(y), w(w), h(h), font(font), wm(wm)//, closeButtonTexture(closeButtonTexture)
 {
 	winh = 20.0f;
+	deleteWindow = false;
 
 	window = win;
 	winTitle = sf::RectangleShape(sf::Vector2f(w, winh));
@@ -57,17 +58,23 @@ bool Okno::titleBarClicked()
 void Okno::checkControls()
 {
 	sf::Vector2f myszf(float(sf::Mouse::getPosition(*window).x), float(sf::Mouse::getPosition(*window).y));
-	for (Array<Button*>::Iterator it = Buttons.begin(); it != Buttons.end(); it++)
-	{
-		if ((*it)->getGlobalBounds().contains(myszf))
-			(*it)->onClick();
-	}
+	
 
 	for (Array<CheckBox*>::Iterator it = CheckBoxes.begin(); it != CheckBoxes.end(); it++)
 	{
 		if ((*it)->getGlobalBounds().contains(myszf))
 			(*it)->onClick();
 	}
+	for (Array<Button*>::Iterator it = Buttons.begin(); it != Buttons.end(); it++)
+	{
+		if ((*it)->getGlobalBounds().contains(myszf))
+			(*it)->onClick();
+	}
+	/*for (Array<Label*>::Iterator it = Labels.begin(); it != Labels.end(); it++)
+	{
+		if ((*it)->getGlobalBounds().contains(myszf))
+			(*it)->onClick();
+	}*/
 
 }
 
@@ -86,15 +93,6 @@ void Okno::startMove()
 {
 	lastMouse = sf::Mouse::getPosition(*window);
 }
-
-//void Okno::setPosition(sf::Vector2i nowa)
-//{
-//	sf::Vector2f nowaf(static_cast<float>(nowa.x), static_cast<float>(nowa.y));
-//	sf::Vector2f rectpos = rectangle.getPosition();
-//	sf::Vector2f titlepos = winTitle.getPosition();
-//	sf::Vector2f inside(nowaf.x - rectpos.x, nowaf.y - rectpos.y);
-//	rectangle.setPosition(nowaf.x - rectpos.x, nowaf.y - rectpos.y);
-//}
 
 void Okno::saveMousePosition()
 {
@@ -121,6 +119,10 @@ void Okno::updatePosition()
 	{
 		(*it)->move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
 	}
+	for (Array<Label*>::Iterator it = Labels.begin(); it != Labels.end(); it++)
+	{
+		(*it)->move(static_cast<float>(newMouse.x - lastMouse.x), static_cast<float>(newMouse.y - lastMouse.y));
+	}
 	lastMouse = newMouse;
 }
 
@@ -140,6 +142,10 @@ void Okno::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(*(*it));
 	}
+	for (Array<Label*>::Iterator it = Labels.begin(); it != Labels.end(); it++)
+	{
+		target.draw(*(*it));
+	}
 }
 
 
@@ -152,6 +158,7 @@ Okno::~Okno()
 {
 	Buttons.clear();
 	CheckBoxes.clear();
+	Labels.clear();
 }
 
 void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, onClickFunction funkcja)
@@ -162,4 +169,9 @@ void Okno::addButton(float cx, float cy, float cw, float ch, std::string text, o
 void Okno::addCheckBox(float cx, float cy, std::string text, bool state)
 {
 	CheckBoxes.push_back(new CheckBox(x+cx, y+cy+winh, text, font, this, state));
+}
+
+void Okno::addLabel(float cx, float cy, std::string text)
+{
+	Labels.push_back(new Label(x+cx, y+cy+winh, text, font, this));
 }

@@ -334,7 +334,8 @@ MyList<typ>::Node::Node()
 template <class typ>
 MyList<typ>::Node::~Node()
 {
-	delete(val);
+	if (val)
+		delete(val);
 }
 
 template <class typ>

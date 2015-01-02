@@ -13,9 +13,9 @@
 void b1(Okno* root)
 {
 	if (root->CheckBoxes[0]->isChecked())
-		std::cout << "CheckBox zaznaczony" << std::endl;
+		root->wm->MessageBox("Chackbox zaznaczony");
 	else
-		std::cout << "CheckBox odzaznaczony" << std::endl;
+		root->wm->MessageBox("CheckBox odzaznaczony");
 }
 
 int main()

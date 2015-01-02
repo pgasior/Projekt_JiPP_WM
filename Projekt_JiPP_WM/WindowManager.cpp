@@ -25,7 +25,7 @@ WindowManager::~WindowManager()
 Okno* WindowManager::addWindow(float x, float y, float w, float h, std::string title, sf::Color kolor)
 {
 
-	return Okna.push_back(Okno(window, x, y, w, h, title, kolor,&closeButtonTexture,&titleBarTexture,&windowTexture, &font));
+	return Okna.push_back(Okno(window, x, y, w, h, title, kolor,&closeButtonTexture,&titleBarTexture,&windowTexture, &font,this));
 }
 
 void WindowManager::pollLeftMouseHoldEvents()
@@ -86,6 +86,16 @@ void WindowManager::pollLeftMouseReleasedEvents()
 {
 	mouse_hold = false;
 	movingWindow = NULL;
+	MyList<Okno>::ReverseIterator it = Okna.rbegin();
+	while (it != Okna.rend())
+	{
+		if (it->deleteWindow)
+		{
+			it.getnode()->remove(true);
+			break;
+		}
+		it++;
+	}
 }
 
 void WindowManager::drawWindows()
@@ -94,3 +104,18 @@ void WindowManager::drawWindows()
 		window->draw(*it);
 }
 
+void WindowManager::closeWindowFunction(Okno* root)
+{
+	root->deleteWindow=true;
+	//std::cout << "Wcisnieto" << std::endl;
+}
+
+void WindowManager::MessageBox(std::string message)
+{
+	Okno* handle = addWindow(static_cast<float>(window->getSize().x / 2-75), static_cast<float>(window->getSize().y / 2-20), 150, 40, "", sf::Color::White);
+	handle->addLabel(10, 5, message);
+	std::cout << "Handle: " << handle << std::endl;
+	//typedef void(Okno::* funkcjaptr)(Okno*);
+	//funkcjaptr = closeWindowFunction;
+	handle->addButton(10, 20, 40, 20, "OK",closeWindowFunction);
+}
