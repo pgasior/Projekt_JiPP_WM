@@ -114,8 +114,8 @@ void WindowManager::MessageBox(std::string message)
 {
 	Okno* handle = addWindow(static_cast<float>(window->getSize().x / 2-75), static_cast<float>(window->getSize().y / 2-20), 150, 40, "", sf::Color::White);
 	handle->addLabel(10, 5, message);
-	std::cout << "Handle: " << handle << std::endl;
+	//std::cout << "Handle: " << handle << std::endl;
 	//typedef void(Okno::* funkcjaptr)(Okno*);
 	//funkcjaptr = closeWindowFunction;
-	handle->addButton(10, 20, 40, 20, "OK",closeWindowFunction);
+	handle->addButton(55, 20, 40, 20, "OK",closeWindowFunction);
 }

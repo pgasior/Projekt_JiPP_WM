@@ -13,9 +13,9 @@
 void b1(Okno* root)
 {
 	if (root->CheckBoxes[0]->isChecked())
-		root->wm->MessageBox("Chackbox zaznaczony");
+		root->wm->MessageBox("CheckBox zaznaczony");
 	else
-		root->wm->MessageBox("CheckBox odzaznaczony");
+		root->wm->MessageBox("CheckBox odznaczony");
 }
 
 int main()

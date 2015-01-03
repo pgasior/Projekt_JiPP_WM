@@ -5,7 +5,7 @@ Label::Label(float x, float y, std::string text, sf::Font *font, Okno* root)
 {
 	
 	message.setFont(*font);
-	message.setCharacterSize(10);
+	message.setCharacterSize(11);
 	message.setString(text);
 	message.setPosition(x, y);
 	message.setColor(sf::Color::Black);
