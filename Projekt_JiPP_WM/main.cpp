@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
@@ -8,7 +8,7 @@
 #include "MyList.h"
 #include "WindowManager.h"
 #include "Button.h"
-#include <vld.h>
+//#include <vld.h>
 
 void b1(Okno* root)
 {

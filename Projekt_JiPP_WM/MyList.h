@@ -357,12 +357,12 @@ typ* MyList<typ>::Node::getVal()
 }
 
 template <class typ>
-typename void MyList<typ>::Node::setPrev(typename MyList<typ>::Node *newPrev)
+void MyList<typ>::Node::setPrev(typename MyList<typ>::Node *newPrev)
 {
 	prev = newPrev;
 }
 template <class typ>
-typename void MyList<typ>::Node::setNext(typename MyList<typ>::Node *newNext)
+void MyList<typ>::Node::setNext(typename MyList<typ>::Node *newNext)
 {
 	next = newNext;
 }

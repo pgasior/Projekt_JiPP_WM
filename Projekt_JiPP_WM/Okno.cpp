@@ -4,12 +4,12 @@
 #include "WindowManager.h"
 #include <SFML/Graphics.hpp>
 
-Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font, WindowManager* wm) : x(x), y(y), w(w), h(h), font(font), wm(wm)//, closeButtonTexture(closeButtonTexture)
+Okno::Okno(sf::RenderWindow *win, float x, float y, float w, float h, std::string title, sf::Color kolor, sf::Texture *closeButtonTexture, sf::Texture *titleBarTexture, sf::Texture *windowTexture, sf::Font *font, WindowManager* wm) : wm(wm),window(win), x(x), y(y), w(w), h(h) , font(font)//, closeButtonTexture(closeButtonTexture)
 {
 	winh = 20.0f;
 	deleteWindow = false;
 
-	window = win;
+	//window = win;
 	winTitle = sf::RectangleShape(sf::Vector2f(w, winh));
 	winTitle.setPosition(x, y);
 	winTitle.setTexture(titleBarTexture);

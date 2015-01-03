@@ -49,7 +49,7 @@ void WindowManager::pollLeftMouseHoldEvents()
 			if (it->closeButtonClicked())
 			{
 				it.getnode()->remove(true);
-				movingWindow = false;
+				movingWindow = NULL;
 				it = Okna.rbegin();
 				break;
 			}

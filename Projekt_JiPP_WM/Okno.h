@@ -47,12 +47,12 @@ private:
 	sf::RectangleShape leftBound;
 	sf::RectangleShape rightBound;
 	sf::RectangleShape downBound;
-	sf::Font *font;
 	float winh;
 	float x;
 	float y;
 	float w;
 	float h;
+	sf::Font *font;
 	sf::Vector2i lastMouse;
 	
 
