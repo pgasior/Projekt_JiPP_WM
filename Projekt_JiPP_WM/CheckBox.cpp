@@ -7,13 +7,16 @@ CheckBox::CheckBox(float x, float y, std::string text, sf::Font *tmpfont, Okno* 
 	outer.setPosition(x, y);
 	outer.setFillColor(sf::Color::Black);
 
+	
 	inner = sf::RectangleShape(sf::Vector2f(w - 2, h - 2));
 	inner.setPosition(x + 1, y + 1);
 	inner.setFillColor(sf::Color::White);
 
+	texture.loadFromFile("checkBoxTexture.png");
 	fill = sf::RectangleShape(sf::Vector2f(w - 4, h - 4));
 	fill.setPosition(x + 2, y + 2);
-	fill.setFillColor(sf::Color::Blue);
+	//fill.setFillColor(sf::Color::Blue);
+	fill.setTexture(&texture);
 
 	checkBoxText.setFont(*font);
 	checkBoxText.setCharacterSize(10);

@@ -18,6 +18,7 @@ protected:
 	sf::RectangleShape inner;
 	sf::RectangleShape fill;
 	sf::Text checkBoxText;
+	sf::Texture texture;
 	bool state;
 };
 

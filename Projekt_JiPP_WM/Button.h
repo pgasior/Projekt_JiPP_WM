@@ -18,5 +18,6 @@ private:
 	sf::RectangleShape outer;
 	sf::RectangleShape inner;
 	sf::Text buttonText;
+	sf::Texture texture;
 };
 

@@ -9,9 +9,12 @@ Button::Button(float x, float y, float w, float h, std::string text, sf::Font *t
 	outer.setPosition(x, y);
 	outer.setFillColor(sf::Color::Black);
 
+	texture.loadFromFile("buttonTexture.png");
 	inner = sf::RectangleShape(sf::Vector2f(w - 2, h - 2));
 	inner.setPosition(x + 1, y + 1);
-	inner.setFillColor(sf::Color::White);
+	//inner.setFillColor(sf::Color::White);
+	inner.setTexture(&texture);
+
 	buttonText.setFont(*font);
 	buttonText.setCharacterSize(10);
 	buttonText.setString(text);
